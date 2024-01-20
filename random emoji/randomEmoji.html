@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<button class="btn" id="btn">
+    click to emoji
+</button>
+<h1 id="h1">code</h1>
+<p id="character"></p>
+<h3 id="h3">name</h3>
+<h1 id="group" >group</h1>
+</body>
+<script>
+
+
+// let randomEmojiCategory = emoji[randomIndex];
+
+// console.log(randomEmojiCategory);
+
+let btn=document.getElementById("btn")
+let h1=document.getElementById("h1")
+let character=document.getElementById("character")
+ let h3= document.getElementById("h3")
+ let grounp=document.getElementById("group")
+let apikey = "Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2";
+    const option = {
+      method: "GET",
+      headers: { "X-Api-Key": apikey },
+    };
+   
+    let emoji=["smileys_emotion",
+"people_body",
+"component",
+"animals_nature",
+"activities",
+"food_drink",
+"travel_places",
+"objects",
+"symbols",
+"flags"
+]
+let randomIndex = Math.floor(Math.random() * emoji.length);
+
+let random=emoji[randomIndex]
+console.log(random)
+
+const apiURL='https://api.api-ninjas.com/v1/emoji?name=' + random
+emojiGenerate=async ()=>{
+    let data=await fetch (apiURL,option)
+    let response=await data.json()
+ 
+    response.forEach(element => {
+        console.log(element.code)
+        console.log(element.character)
+        console.log(element.code)
+h1.innerHTML=element.code
+character .innerHTML=element.character
+h3.innerHTML=element.name
+grounp.innerHTML=element.group
+  
+    });
+}
+
+
+emojiGenerate()
+
+// btn.addEventListener("click",)
+</script>
+</html>
