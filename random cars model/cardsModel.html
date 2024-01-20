@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cars modes</title>
+  </head>
+  <style>
+    .container {
+      border: 1px solid red;
+      height: 100vh;
+      width: 100%;
+      margin: auto;
+      /* display: flex; */
+      /* justify-content: center;
+      align-items: center;
+      flex-direction: column; */
+    }
+    .structure {
+      /* height: 70px;
+        width: 70px;
+        border: 1px solid red; */
+      display: flex;
+      gap: 80px;
+      color: white;
+      margin: auto;
+    }
+    .city {
+        margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      background-color: black;
+      /* flex-direction: column; */
+      width: 100%;
+      border-radius: 10px;
+      overflow-y: auto;
+      flex-wrap: wrap;
+    }
+    .city h1 {
+      font-size: 20px;
+    }
+    .btn {
+      margin: 15px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+  <body>
+    <div class="container" id="container">
+      <button class="btn" id="btn">clickget the car</button>
+<input type="text" id="input">
+      <!-- <div class="structure">
+        <div class="city">
+          <h1>Citympg</h1>
+          <h3>midsize</h3>
+          <h3>class</h3>
+          <h3>cylinders</h3>
+          <h3>displacement</h3>
+          <h3>drive</h3>
+          <h3>highway_mpg</h3>
+          <h3>transmission</h3>
+          <h3>fuelType</h3>
+        </div>
+      </div> -->
+    </div>
+  </body>
+  <script>
+    let btn = document.getElementById("btn");
+    let container = document.getElementById("container");
+let input= document.getElementById("input")
+   let model=input.value
+   console.log(model)
+   
+    let apikey = "Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2";
+    const option = {
+      method: "GET",
+      headers: { "X-Api-Key": apikey },
+    };
+    const apiURL = `https://api.api-ninjas.com/v1/cars?model=swift`;
+    cars = async () => {
+      let data = await fetch(apiURL, option);
+      let response = await data.json();
+      response.forEach((element) => {
+        console.log(element)
+                let div=document.createElement("div")
+        div.classList.add("structure")
+        div.innerHTML=`
+        <div class="city">
+            <h1>${element.city_mpg}</h1>
+          <h3>${element.class}</h3>
+          <h3>class</h3>
+          <h3>${element.cylinders}</h3>
+          <h3>${element.displacement}</h3>
+          <h3>${element.drive}</h3>
+          <h3>${element.highway_mpg}</h3>
+          <h3>${element.transmission}</h3>
+          <h3>${element.fuel_type}</h3>
+                 
+                 
+                        </div>
+
+        `
+
+        container.appendChild(div);
+      });
+    };
+
+    // cars()
+    btn.addEventListener("click", cars);
+    //     btn.addEventListener("click",()=>{
+
+    //         let div=document.createElement("div")
+    //         div.classList.add("structure")
+    // div.innerHTML=`
+    // <div class="city">
+    //                 <h1>City-mpg</h1>
+    //                 <h3>midsize</h3>
+    //                 <h3>21</h3>
+    //             </div>
+
+    // `
+
+    // container.appendChild(div)
+    //     })
+  </script>
+</html>
