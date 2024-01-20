@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Air Craft</title>
+</head>
+<body>
+    
+</body>
+<script>
+    let apikey = "Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2";
+let option = {
+    method: 'GET',
+    headers: { 'X-Api-Key': apikey},
+}
+
+// var manufacturer = 'Gulfstream'
+// var model = 'G550'
+const apiURL= 'https://api.api-ninjas.com/v1/randomword'
+GetAirCraft = async()=>{
+    let data=await fetch(apiURL,option)
+    let response= await data.json()
+    console.log(response)
+}
+
+
+GetAirCraft()
+</script>
+</html>
