@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .container{
+        height: 300px;
+        width: 200px;
+        border: 1px solid;
+    }
+    img{
+        height: 150px;
+        width: auto;
+    }
+</style>
+<body>
+    <div class="container">
+        <h1 id="img"></h1>
+           <button id="btn">Generate the image</button>
+       </div>
+   </body>
+   <script>
+    let apikey="Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2"
+let option={
+    method: 'GET',
+    headers: { 'X-Api-Key': apikey},
+}
+ let apiURL="https://api.api-ninjas.com/v1/hobbies?category=general"
+ const hobie=[]
+ async function imageGenerate(){
+ imageGenerate=async()=>{
+let data= await fetch(apiURL,option)
+let response= await data.json()
+console.log(response)
+// for(let i=0;i<15;i++){
+//     hobie.push({
+//         url:response[i].url
+//     })
+// }
+// img.innerHTML=`${data.url}`
+}}
+ imageGenerate()
+ btn.addEventListener("click",imageGenerate)
+   </script>
+</body>
+</html>
