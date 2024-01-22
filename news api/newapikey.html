@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News apikey</title>
+</head>
+<style>
+img{
+    height: 150px;
+    width: 150px;
+    border-radius: 10px;
+    margin: auto;
+    flex-wrap: wrap;
+/* align-items: center; */
+display: flex;
+/* justify-content: center; */
+}
+.forCreate{
+    height: auto;
+    border: 1px solid ;
+    width: 150px;
+    flex-wrap: wrap;
+    max-height: 400px;
+    min-height: 300px;
+}
+.author {
+    font-size: 15px;
+  
+}
+</style>
+<body>
+    <div class="contaienr" id="contaienr">
+      <!-- <div class="forCreate" id="create">
+        <div class="img">
+            <img src="lala.jpg" alt="">
+        </div>
+        <h3 class="author">
+         Author:JhonDeo
+        </h3>
+        <div class="description">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Minus, quo!</p>
+
+        </div>
+        <h3 class="publishedAt">
+            12/05/2003
+        </h3>
+    </div> -->
+      </div>
+</body>
+<script>
+let contaienr=document.getElementById("contaienr")
+
+newsget = async ()=>{
+    let data= await fetch ('https://newsapi.org/v2/everything?q=pizza&apiKey=19749b96d18c4fe693deb23afefcf85d')
+    let response = await data.json()
+    // console.log(response.articles)
+let articlesdata=response.articles
+console.log(articlesdata)
+articlesdata.forEach(element => {
+    console.log(element.author)
+    let div=document.createElement("div")
+  div.classList.add("create")
+  div.innerHTML = `
+   <div class="img">
+             <img src=${element.urlToImage} alt="">
+         </div>
+         <h3 class="author">
+          Author:${element.author}
+         </h3>
+         <div class="description">
+             <p>${element.description}</p>
+
+         </div>
+         <h3 class="publishedAt">
+           ${element.publishedAt}
+         </h3>
+   
+    `
+ contaienr.appendChild(div)
+});
+//    let div=document.createElement("div")
+//    div.classList.add("create")
+//    div.innerHTML = `
+//    <div class="img">
+//             <img src=${response.articles[1].urlToImage} alt="">
+//         </div>
+//         <h3 class="author">
+//          Author:${response.articles[0].author}
+//         </h3>
+//         <div class="description">
+//             <p>${response.articles[0].description}</p>
+
+//         </div>
+//         <h3 class="publishedAt">
+//           ${response. articles[0].publishedAt}
+//         </h3>
+   
+//    `
+// contaienr.appendChild(div)
+}
+
+
+
+newsget()
+
+
+</script>
+</html>
