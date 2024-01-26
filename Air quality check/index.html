@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        Check the Air Quality
+    </title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="heading">
+        <h2>
+            Check the Air Quality of Your City
+        </h2>
+    </div>
+<div class="container" id="container">
+    <h1 class="containerHeading ">Air Quality</h1>
+    <div class="input">
+        <input type="text" placeholder="Enter your City" name="" value="" id="input">
+        <button class="Submit" id="btn">Search</button>
+       </div>
+<div class="containers" id="containers">
+    <ul class="item_list" id="item_list">
+     
+        <!-- <li class="item">
+       <div class="divider">
+        <div class="headingname">
+            <h2>CO<sup>2</sup></h2>
+         </div>
+         <hr class="hr">
+        <div class="ske">
+            <div class="left">
+                <h2 class="containerHeadingName">concentration</h2>
+                <h2 class="containerHeadingName">12</h2>
+             </div>
+             
+             <div class="right">
+                <h2 class="containerHeadingName">aqi</h2>
+                <h2 class="containerHeadingName">12</h2>
+             
+             </div>
+        </div>
+        
+       </div>
+       
+        </li>
+        <li class="item">
+            <div class="divider">
+             <div class="headingname">
+                 <h2>PM10</h2>
+              </div>
+              <hr class="hr">
+             <div class="ske">
+                 <div class="left">
+                     <h2 class="containerHeadingName">concentration</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  </div>
+                  
+                  <div class="right">
+                     <h2 class="containerHeadingName">aqi</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  
+                  </div>
+             </div>
+             
+            </div>
+            
+        </li>
+
+        <li class="item">
+            <div class="divider">
+             <div class="headingname">
+                 <h2>NO2</h2>
+              </div>
+              <hr class="hr">
+             <div class="ske">
+                 <div class="left">
+                     <h2 class="containerHeadingName">concentration</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  </div>
+                  
+                  <div class="right">
+                     <h2 class="containerHeadingName">aqi</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  
+                  </div>
+             </div>
+             
+            </div>
+            
+        </li>  
+         <li class="item">
+            <div class="divider">
+             <div class="headingname">
+                 <h2>SO2</h2>
+              </div>
+              <hr class="hr">
+             <div class="ske">
+                 <div class="left">
+                     <h2 class="containerHeadingName">concentration</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  </div>
+                  
+                  <div class="right">
+                     <h2 class="containerHeadingName">aqi</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  
+                  </div>
+             </div>
+             
+            </div>
+            
+        </li> 
+          <li class="item">
+            <div class="divider">
+             <div class="headingname">
+                 <h2>PM2.5</h2>
+              </div>
+              <hr class="hr">
+             <div class="ske">
+                 <div class="left">
+                     <h2 class="containerHeadingName">concentration</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  </div>
+                  
+                  <div class="right">
+                     <h2 class="containerHeadingName">aqi</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  
+                  </div>
+             </div>
+             
+            </div>
+            
+        </li>  
+         <li class="item">
+            <div class="divider">
+             <div class="headingname">
+                 <h2>O3</h2>
+              </div>
+              <hr class="hr">
+             <div class="ske">
+                 <div class="left">
+                     <h2 class="containerHeadingName">concentration</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  </div>
+                  
+                  <div class="right">
+                     <h2 class="containerHeadingName">aqi</h2>
+                     <h2 class="containerHeadingName">12</h2>
+                  
+                  </div>
+             </div>
+             
+            </div>
+            
+        </li>
+ -->
+
+    </ul>
+</div>
+</div>
+
+</body>
+<script>
+    let apikey = 'Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2'
+ let item_list=   document.getElementById("item_list")
+ let option={
+    method: 'GET',
+    headers: { 'X-Api-Key':apikey},
+    contentType: 'application/json',
+}
+
+
+
+let input = document.getElementById("input")
+let containers =document.getElementById("containers")
+weather = async () =>{
+  
+ 
+
+ 
+const apiURL = `https://api.api-ninjas.com/v1/airquality?city=${input.value}` 
+
+   let data=await fetch(apiURL,option)
+   let response=await data.json()
+  
+let ulList=document.createElement('ul')
+ulList.classList.add('item_list')
+ const ull=ulList.innerHTML=`
+
+<li class="item">
+      <div class="divider">
+       <div class="headingname">
+           <h2>CO<sup>2</sup></h2>
+        </div>
+        <hr class="hr">
+       <div class="ske">
+           <div class="left">
+               <h2 class="containerHeadingName">concentration</h2>
+               <h2 class="containerHeadingName">${response.CO.concentration}</h2>
+            </div>
+            
+            <div class="right">
+               <h2 class="containerHeadingName">aqi</h2>
+               <h2 class="containerHeadingName">${response.CO.aqi}</h2>
+            
+            </div>
+       </div>
+       
+      </div>
+      
+       </li>
+       <li class="item">
+           <div class="divider">
+            <div class="headingname">
+                <h2>PM10</h2>
+             </div>
+             <hr class="hr">
+            <div class="ske">
+                <div class="left">
+                    <h2 class="containerHeadingName">concentration</h2>
+                    <h2 class="containerHeadingName">${response.PM10.concentration}</h2>
+                 </div>
+                 
+                 <div class="right">
+                    <h2 class="containerHeadingName">aqi</h2>
+                    <h2 class="containerHeadingName">${response.PM10.aqi}</h2>
+                 
+                 </div>
+            </div>
+            
+           </div>
+           
+       </li>
+
+       <li class="item">
+           <div class="divider">
+            <div class="headingname">
+                <h2>NO2</h2>
+             </div>
+             <hr class="hr">
+            <div class="ske">
+                <div class="left">
+                    <h2 class="containerHeadingName">concentration</h2>
+                    <h2 class="containerHeadingName">${response.NO2.concentration}</h2>
+                 </div>
+                 
+                 <div class="right">
+                    <h2 class="containerHeadingName">aqi</h2>
+                    <h2 class="containerHeadingName">${response.NO2.aqi}</h2>
+                 
+                 </div>
+            </div>
+            
+           </div>
+           
+       </li>  
+        <li class="item">
+           <div class="divider">
+            <div class="headingname">
+                <h2>SO2</h2>
+             </div>
+             <hr class="hr">
+            <div class="ske">
+                <div class="left">
+                    <h2 class="containerHeadingName">concentration</h2>
+                    <h2 class="containerHeadingName">${response.SO2.concentration}</h2>
+                 </div>
+                 
+                 <div class="right">
+                    <h2 class="containerHeadingName">aqi</h2>
+                    <h2 class="containerHeadingName">${response.SO2.aqi}</h2>
+                 
+                 </div>
+            </div>
+            
+           </div>
+           
+       </li> 
+ 
+        <li class="item">
+           <div class="divider">
+            <div class="headingname">
+                <h2>O3</h2>
+             </div>
+             <hr class="hr">
+            <div class="ske">
+                <div class="left">
+                    <h2 class="containerHeadingName">concentration</h2>
+                    <h2 class="containerHeadingName">${response.O3.concentration}</h2>
+                 </div>
+                 
+                 <div class="right">
+                    <h2 class="containerHeadingName">aqi</h2>
+                    <h2 class="containerHeadingName">${response.O3.aqi}</h2>
+                 
+                 </div>
+            </div>
+            
+           </div>
+           
+       </li>
+
+
+
+`
+containers.appendChild(ulList)
+
+input.value =""
+
+  }
+
+
+  
+  
+
+//   function reset() {
+//     while (container.firstChild){
+//     return container.removeChild(container.firstChild)
+// }
+// }
+
+
+
+
+
+let btn=document.getElementById("btn")
+btn.addEventListener('click',weather)
+// btn.addEventListener('click',()=>{
+//     window.setTimeout( function() {
+//   window.location.reload();
+// }, 30000);
+// })
+
+</script>
+</html>

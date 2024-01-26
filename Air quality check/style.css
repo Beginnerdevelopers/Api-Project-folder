@@ -1,0 +1,132 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    display: grid;
+    place-content: center;
+    place-items: center;
+    width: 100%;
+  
+    /* height: 100vh; */
+}
+.heading{
+ 
+  height: 60px;
+  width: 500px;
+ 
+    background-color: gray;
+    text-align: center;
+border-radius: 10px;
+
+}
+.heading h2{
+ color: rgb(29, 27, 27);
+ margin-top: 18px;
+}
+.container{
+    height: auto;
+    width: 500px;
+    /* border: 1px solid red; */
+    /* overflow-y: auto; */
+flex-wrap: wrap;
+}
+.containerHeading{
+    height: 30px;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+
+}
+.item{
+    height:  60px;
+    width: 100%;
+    flex-wrap: wrap;
+    background-color: antiquewhite;
+    margin-top: 10px;
+    list-style: none;
+    font-size: 17px;
+}
+.input{
+    height:  40px;
+    width: 100%;
+    
+    background-color: antiquewhite;
+    margin-top: 10px;
+    list-style: none;
+    font-size: 17px;
+    display:flex;
+}
+input{
+    /* text-align: center; */
+    height: 40px;
+    width: 100%;
+    background-color: gray;
+    border:  none;
+    outline: none;
+    border-radius: 10px 0 0 10px;
+    font-size: 20px;
+    padding-left: 10px;
+    
+
+}
+input::placeholder{
+    color: white;
+    font-size: 20px;
+    padding-left: 10px;
+
+}
+button
+{
+    height: 40px ;
+    background-color: pink;
+    border: none;
+    outline: none;
+font-size: 17px;
+    font-weight: 500;
+    border-radius: 0 10px 10px 0 ;
+cursor: pointer;
+width: 80px;
+
+}
+.left{
+    display: flex;
+justify-content: space-between;
+padding: 0 10px;
+height: 25px;
+padding: 5px;
+}
+
+.right{
+    height: 25px;
+    display: flex;
+justify-content: space-between;
+padding: 0 10px;
+padding: 5px;
+
+}
+.divider{
+    display: flex;
+    /* justify-content: space-around; */
+}
+.headingname{
+    height: 60px;
+    width: 100px;
+    text-align: center;
+    margin-top: 10px;
+    /* background-color: blue; */
+    color:blue;
+}
+.ske{
+    width: 100%;
+    padding:  0 10%;
+}
+hr{
+    height: 60px;
+
+}
+.hr{
+border-color:black;
+
+}
