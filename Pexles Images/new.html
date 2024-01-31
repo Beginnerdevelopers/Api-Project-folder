@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Search</title>
+</head>
+<body>
+    <div>
+        <label for="searchInput">Search for Images:</label>
+        <input type="text" id="searchInput" placeholder="Enter your search term">
+        <button onclick="searchImages()">Search</button>
+    </div>
+
+    <div id="imageResults"></div>
+
+    <script>
+const accessKey = 'UZyRI89INmrmY6cqBsBS5PcretVGOMs8K8hRxkOYKjgwZWg2Tm2itcFC'; // Replace with your Unsplash access key
+
+        // const accessKey = 'YOUR_UNSPLASH_ACCESS_KEY'; // Replace with your Unsplash access key
+        const searchInput = document.getElementById('searchInput');
+        const imageResults = document.getElementById('imageResults');
+
+        function searchImages() {
+            const query = searchInput.value;
+
+            if (!query) {
+                alert('Please enter a search term.');
+                return;
+            }
+
+            const apiUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}&query=${query}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    // displayImages(data);
+                    console.log(data)
+                })
+                .catch(error => {
+                    console.error('Error fetching images:', error);
+                });
+        }
+
+        function displayImages(images) {
+            imageResults.innerHTML = '';
+
+            images.forEach(image => {
+                const imgElement = document.createElement('img');
+                imgElement.src = image.urls.small;
+                imgElement.alt = image.alt_description;
+
+                imageResults.appendChild(imgElement);
+            });
+        }
+    </script>
+</body>
+</html>

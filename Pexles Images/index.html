@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexles</title>
+    <style>
+img{
+    height: 60px;
+    width: 60px;
+}
+
+    </style>
+</head>
+
+<body>
+    <div>
+        <label for="searchInput">Search for Images:</label>
+        <input type="text" id="searchInput" placeholder="Enter your search term">
+        <button onclick="searchImages()">Search</button>
+    </div>
+<div id="imageResults"></div>
+
+    <button class="btn" id="btn">click</button>
+</body>
+<script>
+    const btn=document.getElementById("btn")
+
+    const searchInput = document.getElementById('searchInput');
+    const imageResults = document.getElementById('imageResults');
+    
+    const accessKey = 'UZyRI89INmrmY6cqBsBS5PcretVGOMs8K8hRxkOYKjgwZWg2Tm2itcFC'; // Replace with your Unsplash access key
+Option ={
+    method: 'GET',
+  headers: {
+    'Authorization': accessKey,
+  },
+}
+const pexles = async(images) =>{
+    const getvalue =searchInput.value
+  const data = await fetch ('https://api.pexels.com/v1/search?query=people',Option)
+  const response = await data.json()
+//   displayImages(data)
+const respPhoto=response.photos
+console.log(respPhoto)
+
+respPhoto.forEach(element => {
+   
+    const imgElement = document.createElement('img')
+     imgElement.src =element.src.original
+    //  imgElement.alt = image.alt_description;
+     imageResults.appendChild(imgElement);
+
+
+console.log(element.src.original)
+
+});
+
+}
+
+btn.addEventListener("click",pexles)
+
+
+
+
+
+// function searchImages () {
+//     const query= searchInput.value
+//     if(!query){
+//         alert("enter something in the input feild")
+// return
+//     }
+//     const apiUrl = `https://api.unsplash.com/photos/?client_id=${accessKey}&query=${query}`;
+//     fetch(apiUrl)
+//                 .then(response => response.json())
+//                 .then(data => {
+//                     // displayImages(data);
+//                     console.log(data)
+//                 })
+//                 .catch(error => {
+//                     console.error('Error fetching images:', error);
+//                 });
+    
+// }
+
+
+// function displayImages(images) {
+//             imageResults.innerHTML = '';
+
+//             images.forEach(image => {
+//                 const imgElement = document.createElement('img');
+//                 imgElement.src = image.urls.small;
+//                 imgElement.alt = image.alt_description;
+
+//                 imageResults.appendChild(imgElement);
+//             });
+//         }
+
+
+
+</script>
+</html>
