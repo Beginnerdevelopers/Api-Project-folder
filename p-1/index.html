@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pexels Image Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin: 20px;
+        }
+
+        .image-container {
+            margin: 10px;
+        }
+
+        img {
+            width: 300px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        #search-container {
+            text-align: center;
+            margin: 20px;
+        }
+
+        #load-more {
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Pexels Image Gallery</h1>
+</header>
+
+<div id="search-container">
+    <input type="text" id="search-bar" placeholder="Enter your search term">
+    <button onclick="searchImages()">Search</button>
+</div>
+
+<div id="gallery"></div>
+
+<div id="load-more-container" style="text-align: center; margin-bottom: 20px;">
+    <button id="load-more" onclick="loadMoreImages()">Load More</button>
+</div>
+
+<script>
+const accessKey = 'UZyRI89INmrmY6cqBsBS5PcretVGOMs8K8hRxkOYKjgwZWg2Tm2itcFC'; // Replace with your Unsplash access key
+
+    const apiUrl = 'https://api.pexels.com/v1/search';
+    const perPage = 12;  // Number of images per page
+    let currentPage = 1;
+    let currentQuery = '';
+
+    function searchImages() {
+        currentQuery = document.getElementById('search-bar').value.trim();
+        currentPage = 1; // Reset to the first page when a new search is performed
+        fetchImages();
+    }
+
+    function loadMoreImages() {
+        currentPage++;
+        fetchImages();
+    }
+
+    function fetchImages() {
+        const headers = new Headers({
+            'Authorization': accessKey,
+        });
+
+        const params = new URLSearchParams({
+            'query': currentQuery,
+            'per_page': perPage,
+            'page': currentPage,
+        });
+
+        const url = `${apiUrl}?${params}`;
+
+        fetch(url, {headers: headers})
+            .then(response => response.json())
+            .then(data => {
+                const gallery = document.getElementById('gallery');
+                const loadMoreContainer = document.getElementById('load-more-container');
+                const loadMoreButton = document.getElementById('load-more');
+
+                if (currentPage === 1) {
+                    gallery.innerHTML = ''; // Clear existing images when performing a new search
+                }
+
+                data.photos.forEach(photo => {
+                    const imageContainer = document.createElement('div');
+                    imageContainer.classList.add('image-container');
+
+                    const image = document.createElement('img');
+                    image.src = photo.src.original;
+                    image.alt = photo.id;
+
+                    imageContainer.appendChild(image);
+                    gallery.appendChild(imageContainer);
+                });
+
+                // Display or hide the "Load More" button based on the number of images returned
+                loadMoreContainer.style.display = (data.photos.length < perPage) ? 'none' : 'block';
+
+                // Disable the "Load More" button if no more pages are available
+                loadMoreButton.disabled = (data.photos.length < perPage);
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    }
+</script>
+
+</body>
+</html>
