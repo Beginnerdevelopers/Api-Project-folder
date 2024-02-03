@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>funny Chuck Norris jokes</title>
+</head>
+<style>
+    body{
+        display: grid;
+        place-items: center;
+    }
+    .input{
+        margin: auto;
+        height: 200px;
+      
+    }
+    #btn{
+        display: block;
+        height: 50px;
+        width: auto;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+</style>
+<body>
+<div class="input">
+ <button id="btn">funny Chuck Norris jokes</button>
+ <p id="para"></p>
+</div>
+</body>
+<script>
+ let btn=  document.getElementById("btn")
+       const apikey = 'Jznctih1kFhvpMaJCzjebg==m6grmVUCVU7P5on2'
+       Option = {
+        method: 'GET',
+        headers: { 'X-Api-Key':apikey},
+
+       }
+       let apiURl= 'https://api.api-ninjas.com/v1/chucknorris'
+
+const getFunnychunk = async () => {
+let data =await fetch (apiURl,Option)
+let res=await data.json()
+
+document.getElementById('para').innerHTML= res.joke
+}
+
+
+       btn.addEventListener("click",getFunnychunk)
+</script>
+</html>
