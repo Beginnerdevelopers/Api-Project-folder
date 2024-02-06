@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagination with Pexels API and Search</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        #content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .pagination {
+            display: flex;
+            list-style: none;
+            padding: 0;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .pagination li.active {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #content img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        #content a {
+            display: block;
+            margin-bottom: 10px;
+            text-decoration: none;
+            color: #333;
+        }
+
+        #search {
+            margin-top: 20px;
+            padding: 5px;
+        }
+
+        #submitBtn {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .download-btn, .share-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <input type="text" id="search" placeholder="Enter search query">
+    <button id="submitBtn">Submit</button>
+</div>
+
+<div id="content"></div>
+
+<ul class="pagination" id="pagination"></ul>
+
+<script>
+const accessKey = 'UZyRI89INmrmY6cqBsBS5PcretVGOMs8K8hRxkOYKjgwZWg2Tm2itcFC'; // Replace with your Unsplash access key
+
+    const itemsPerPage = 5;
+    let currentPage = 1;
+    let currentQuery = '';
+
+    function fetchPexelsData(page, query) {
+        const apiUrl = `https://api.pexels.com/v1/search?query=${query}&page=${page}&per_page=${itemsPerPage}`;
+        return fetch(apiUrl, {
+            headers: {
+                'Authorization': accessKey
+            }
+        })
+        .then(response => response.json())
+        .then(data => data.photos)
+        .catch(error => console.error('Error fetching data from Pexels:', error));
+    }
+
+    function displayItems(page, query) {
+        fetchPexelsData(page, query)
+            .then(photos => {
+                const contentElement = document.getElementById('content');
+                contentElement.innerHTML = '';
+
+                photos.forEach(photo => {
+                    const imgElement = document.createElement('img');
+                    imgElement.src = photo.src.large;
+
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = photo.src.original;
+                    downloadLink.target = '_blank';
+                    downloadLink.className = 'download-btn';
+                    downloadLink.textContent = 'Download';
+
+                    const shareButton = document.createElement('button');
+                    shareButton.className = 'share-btn';
+                    shareButton.textContent = 'Share';
+                    shareButton.addEventListener('click', () => shareImage(photo));
+
+                    const container = document.createElement('div');
+                    container.appendChild(imgElement);
+                    container.appendChild(downloadLink);
+                    container.appendChild(shareButton);
+
+                    contentElement.appendChild(container);
+                });
+            })
+            .catch(error => console.error('Error displaying items:', error));
+    }
+
+    function setupPagination() {
+        const totalPages = 10; // You can adjust this based on the total number of pages from Pexels API.
+        const paginationElement = document.getElementById('pagination');
+        paginationElement.innerHTML = '';
+
+        for (let i = 1; i <= totalPages; i++) {
+            const listItem = document.createElement('li');
+            listItem.textContent = i;
+            listItem.addEventListener('click', () => {
+                currentPage = i;
+                displayItems(currentPage, currentQuery);
+                updatePaginationUI();
+            });
+
+            if (i === currentPage) {
+                listItem.classList.add('active');
+            }
+
+            paginationElement.appendChild(listItem);
+        }
+    }
+
+    function updatePaginationUI() {
+        const paginationItems = document.querySelectorAll('.pagination li');
+        paginationItems.forEach((item, index) => {
+            if (index + 1 === currentPage) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+
+    function shareImage(photo) {
+        const shareText = `Check out this awesome image from Pexels: ${photo.url}`;
+        const shareUrl = encodeURIComponent(photo.url);
+
+        // Open Facebook sharing dialog
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`, 'Share on Facebook', 'width=600,height=400');
+
+        // Open Twitter sharing dialog
+        window.open(`https://twitter.com/intent/tweet?text=${shareText}`, 'Share on Twitter', 'width=600,height=400');
+    }
+
+    // Event listener for the submit button
+    document.getElementById('submitBtn').addEventListener('click', function () {
+        currentQuery = document.getElementById('search').value.trim();
+        currentPage = 1;
+        displayItems(currentPage, currentQuery);
+        setupPagination();
+    });
+
+    displayItems(currentPage, currentQuery);
+    setupPagination();
+</script>
+
+</body>
+</html>
